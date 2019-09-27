@@ -1,8 +1,6 @@
 var express = require("express");
 var mongoose = require("mongoose");
-var axios = require("axios");
-var cheerio = require("cheerio");
-// var routes = require("./routes");
+var routes = require("./routes");
 var exphbs = require("express-handlebars");
 require('dotenv').config()
 
@@ -13,10 +11,11 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
 app.use(express.static("public"));
-// app.use(routes);
 
-app.engine("handlebars"), exphbs({defaultLayout: "main"});
+app.engine("handlebars", exphbs({defaultLayout: "main"}));
 app.set("view engine","handlebars");
+
+app.use(routes);
 
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoscraperdb";
 mongoose.connect(MONGODB_URI, {useNewUrlParser: true});
